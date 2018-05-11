@@ -16,8 +16,7 @@ end
 
 def head(s)
   p = Pastel.new
-  p.bold.magenta("➸ ") +
-    p.bold.magenta.underline(s)
+  p.bold.magenta("➸ ") + p.bold.magenta.underline(s) + "\n\n"
 end
 #def image(path)
   #img = Base64.encode64(File.read(path))
@@ -36,9 +35,9 @@ slides << ->() {
   puts head("Bio")
   puts "     name: Will Leinweber"
   puts "  twitter: @leinweber"
-  puts "Home Page: bitfission.com " + pastel.yellow("warning! midis autoplay")
+  puts "Home Page: bitfission.com " + pastel.yellow('/!\warning/!\ midis autoplay')
   puts "     work: citusdata.com"
-  puts "   slides: github.com/will/starwars"
+  puts "   slides: github.com/will/psqlstarwars"
 }
 
 
@@ -62,6 +61,30 @@ This allows convenient re-execution of commands.
 EOF
   STDIN.gets
   puts "Will Leinweber, reviewed by Peter Eisentraut, Daniel Farina, and Tom Lane"
+}
+
+
+slides << ->() {
+  puts head 'asciimation.co.nz'
+  puts "by Simon Jansen"
+}
+
+slides << ->() {
+  puts head "can't just curl"
+  puts <<-EOF
+<script type="text/javascript">
+<!--
+Sorry your browser doesn't support compressed web pages. Click the link below for the original Java version.
+EOF
+}
+
+slides << ->() {
+  puts head "use compression!"
+  puts <<-EOF
+$ curl -sH 'Accept-encoding: gzip' www.asciimation.co.nz | gunzip - > site.html
+$ du -hs site.html
+2.0M	site.html
+EOF
 }
 
 start = (ARGV[0] || 1).to_i - 1
