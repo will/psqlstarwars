@@ -21,6 +21,16 @@ def blink(s)
   "\e[5m#{s}\e[0m"
 end
 
+@triggered = false
+def async_loop
+  @triggered = false
+  Thread.new { STDIN.gets; @triggered = true }
+  loop do
+    yield
+    break if @triggered
+  end
+end
+
 def head(s)
   p = Pastel.new
   p.bold.magenta("➸ ") + p.bold.magenta.underline(s) + "\n\n"
@@ -30,12 +40,39 @@ end
   #puts "\x1B]1337;File=inline=1;#{img}\x07"
 #end
 
+def add_stars(s)
+  new_s = []
+  s.split(//).each do |c|
+    if c == " "
+      if rand > 0.7
+        new_s << rand_star
+      else
+        new_s << c
+      end
+    else
+      new_s << c
+    end
+  end
+  new_s.join('')
+end
+
+def rand_star
+  c = rand > 0.5  ? "." : "*"
+  c = blink(c) if rand > 0.5
+  c = Pastel.new.yellow(c) if rand > 0.5
+  c
+end
+
 slides << ->() {
   wrap = ->(n, s) { "❦ "*n + s + "❦ "*n }
-  puts wrap.(10, pastel.magenta('using psql to \watch'))
-  puts starwars.write "Star"
-  puts starwars.write "Wars"
-  puts wrap.(11, pastel.magenta("Will Leinweber"))
+  async_loop do
+    puts wrap.(10, pastel.magenta('using psql to \watch'))
+    puts add_stars starwars.write "Star "
+    puts add_stars starwars.write "Wars"
+    puts wrap.(11, pastel.magenta("Will Leinweber"))
+    sleep 1 + rand
+    print TTY::Cursor.up(16)
+  end
 }
 
 slides << ->() {
