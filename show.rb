@@ -113,8 +113,45 @@ slides << ->() {
 
 slides << ->() {
   puts head "ETL!"
-
+  print 'raw = File.readlines("site.html")'; STDIN.gets
+  print '  .find {|line| line.start_with? "var film"}'; STDIN.gets
+  print "  .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')[12..-16]"; STDIN.gets
+  print %q{  .split('\n')}; STDIN.gets
+  print "  .each_slice(14)"
 }
+
+slides << ->() {
+  puts head "ETL!"
+  puts <<-'EOF'
+require 'sequel'
+db = Sequel.connect("postgres:///")
+
+raw.each do |data|
+  count, *frame = data
+  db[:film] << {count: count.to_i, frame: frame.join("\n")}
+end
+  EOF
+}
+
+slides << ->() {
+  puts head "we are"
+  puts starwars.write "almost"
+  puts starwars.write "there"
+}
+
+slides << ->() {
+  puts head "postgres functions!"
+  puts <<-SQL.gsub(/speed|ctr/) {|s| pastel.cyan.bold(s)}
+CREATE OR REPLACE FUNCTION GO(speed numeric, ctr bigint)
+RETURNS text AS $$
+  begin
+    PERFORM pg_sleep(count*speed) FROM film WHERE i=ctr-1;
+    RETURN (SELECT frame FROM film WHERE i=ctr);
+  end
+$$ LANGUAGE plpgsql;
+SQL
+}
+
 
 last_from_file = File.read(".current") rescue nil
 @current = (ARGV[0] || last_from_file || 1).to_i - 1
@@ -142,4 +179,5 @@ loop do
 end
 
 File.delete ".current" if File.exists? ".current"
+print "\e[H\e[2J"
 puts 'show over \o/'
