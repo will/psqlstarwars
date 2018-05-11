@@ -1,0 +1,18 @@
+GEM
+  specs:
+    equatable (0.5.0)
+    pastel (0.7.2)
+      equatable (~> 0.5.0)
+      tty-color (~> 0.4.0)
+    tty-color (0.4.2)
+    tty-font (0.2.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  pastel
+  tty-font
+
+BUNDLED WITH
+   1.16.1
