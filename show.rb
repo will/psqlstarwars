@@ -4,6 +4,13 @@ require 'bundler/setup'
 Bundler.require(:default)
 require "base64"
 
+if ARGV[0] == "c"
+  height = 18
+  width = 75
+  msg = " can you read this"
+  height.times {|i| puts i.to_s.rjust(2) + msg + "?"*(width-msg.size-3) }
+  exit
+end
 slides = []
 
 starwars = TTY::Font.new(:starwars)
@@ -38,29 +45,6 @@ slides << ->() {
   puts "Home Page: bitfission.com " + pastel.yellow('/!\warning/!\ midis autoplay')
   puts "     work: citusdata.com"
   puts "   slides: github.com/will/psqlstarwars"
-}
-
-
-slides << ->() {
-  puts font.write '\watch'
-  puts "postgres 9.3"
-}
-
-slides << ->() {
-  puts head("Best contribution in the history of computer science?")
-  puts "Some say yes"
-  STDIN.gets
-  puts <<-EOF
-commit c6a3fce7dd4dae6e1a005e5b09cdd7c1d7f9c4f4
-Author: Tom Lane <tgl@sss.pgh.pa.us>
-Date:   Thu Apr 4 19:56:33 2013 -0400
-
-Add \watch [SEC] command to psql.
-
-This allows convenient re-execution of commands.
-EOF
-  STDIN.gets
-  puts "Will Leinweber, reviewed by Peter Eisentraut, Daniel Farina, and Tom Lane"
 }
 
 
@@ -152,6 +136,65 @@ $$ LANGUAGE plpgsql;
 SQL
 }
 
+slides << ->() {
+  puts head "postgres sequences!"
+  puts <<-SQL.gsub(/--.*$/) {|s| pastel.cyan.bold(s) }
+CREATE SEQUENCE ctr;
+SELECT nextval('ctr'); -- 1
+SELECT nextval('ctr'); -- 2
+SELECT nextval('ctr'); -- 3
+
+ALTER SEQUENCE ctr RESTART 200;
+SELECT nextval('ctr'); -- 200
+SELECT nextval('ctr'); -- 201
+SQL
+}
+
+slides << ->() {
+  puts head "Are we done?"
+  puts "SELECT go(0.01, nextval('ctr');"
+  puts "SELECT go(0.01, nextval('ctr');"
+  puts "SELECT go(0.01, nextval('ctr');"
+  puts "SELECT go(0.01, nextval('ctr');"
+  puts
+  puts head "NO! there HAS to be a better way!"
+
+}
+
+slides << ->() {
+  puts font.write '\watch'
+puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
+puts "   postgres 9.3"
+puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
+}
+
+slides << ->() {
+  puts head("Best contribution in the history of computer science?")
+  puts "Some say yes"
+  STDIN.gets
+  puts <<-EOF
+  commit c6a3fce7dd4dae6e1a005e5b09cdd7c1d7f9c4f4
+  Author: Tom Lane <tgl@sss.pgh.pa.us>
+  Date:   Thu Apr 4 19:56:33 2013 -0400
+
+  Add \watch [SEC] command to psql.
+
+  This allows convenient re-execution of commands.
+EOF
+  STDIN.gets
+  puts "  Will Leinweber, reviewed by Peter Eisentraut, Daniel Farina, and Tom Lane"
+  puts "  😇"
+}
+
+
+slides << ->() {
+  puts starwars.write "demo"
+}
+
+slides << ->() {
+  puts starwars.write "thanks"
+  puts head "@leinweber"
+}
 
 last_from_file = File.read(".current") rescue nil
 @current = (ARGV[0] || last_from_file || 1).to_i - 1
