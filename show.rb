@@ -163,9 +163,9 @@ slides << ->() {
 
 slides << ->() {
   puts font.write '\watch'
-puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
-puts "   postgres 9.3"
-puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
+  puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
+  puts "   postgres 9.3"
+  puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
 }
 
 slides << ->() {
@@ -183,7 +183,8 @@ slides << ->() {
 EOF
   STDIN.gets
   puts "  Will Leinweber, reviewed by Peter Eisentraut, Daniel Farina, and Tom Lane"
-  puts "  😇"
+  h = "😇" + ' '
+  puts "  " + h*7
 }
 
 
@@ -216,11 +217,12 @@ loop do
   input = STDIN.gets.strip
   if input == "b"
     @current -= 1
+  elsif input == "r"
+    # noop
   else
     @current += 1
   end
 end
 
 File.delete ".current" if File.exists? ".current"
-print "\e[H\e[2J"
-puts 'show over \o/'
+puts '\o/ show over \o/'
