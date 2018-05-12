@@ -156,18 +156,18 @@ end
 
 slides << ->() {
   puts head "we are"
-  puts starwars.write "almost"
-  puts starwars.write "there"
+  puts add_stars starwars.write "almost"
+  puts add_stars starwars.write "there!"
 }
 
 slides << ->() {
   puts head "postgres functions!"
   puts <<-SQL.gsub(/speed|ctr/) {|s| pastel.cyan.bold(s)}
-CREATE OR REPLACE FUNCTION GO(speed numeric, ctr bigint)
+CREATE OR REPLACE FUNCTION go(speed numeric, ctr bigint)
 RETURNS text AS $$
   begin
-    PERFORM pg_sleep(count*speed) FROM film WHERE i=ctr-1;
-    RETURN (SELECT frame FROM film WHERE i=ctr);
+    PERFORM pg_sleep(count*speed) FROM film WHERE i=ctr-1; -- 😴
+    RETURN (SELECT frame FROM film WHERE i=ctr);           -- 👀
   end
 $$ LANGUAGE plpgsql;
 SQL
