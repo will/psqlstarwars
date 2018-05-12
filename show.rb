@@ -233,6 +233,7 @@ slides << ->() {
 slides << ->() {
   puts add_stars starwars.write "thanks"
   puts head "@leinweber"
+  puts head "github.com/will/psqlstarwars"
 }
 
 last_from_file = File.read(".current") rescue nil
