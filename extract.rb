@@ -1,6 +1,7 @@
 raw = File.readlines("site.html")
           .find {|line| line.start_with? "var film"}
-          .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')[12..-16]
+          .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+          .gsub(%q{\'},"'")[12..-16]
           .split('\n')
           .each_slice(14)
 

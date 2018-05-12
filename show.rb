@@ -137,7 +137,8 @@ slides << ->() {
   puts head "ETL!"
   print 'raw = File.readlines("site.html")'; STDIN.gets
   print '  .find {|line| line.start_with? "var film"}'; STDIN.gets
-  print "  .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')[12..-16]"; STDIN.gets
+  print "  .encode('UTF-8','binary',invalid: :replace,undef: :replace,replace: '')"; STDIN.gets
+  print %q{  .gsub(%q{\'},"'")[12..-16]"}; STDIN.gets
   print %q{  .split('\n')}; STDIN.gets
   print "  .each_slice(14)"
 }
