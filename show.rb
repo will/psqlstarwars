@@ -41,8 +41,9 @@ end
 #end
 
 def add_stars(s)
+  color = Pastel.new.bold.green.detach
   new_s = []
-  s.split(//).each do |c|
+  s.split(/\n/).map { |line| line.ljust(TTY::Screen.width) }.join("\n").split(//).each do |c|
     if c == " "
       if rand > 0.7
         new_s << rand_star
@@ -50,7 +51,7 @@ def add_stars(s)
         new_s << c
       end
     else
-      new_s << c
+      new_s << color.(c)
     end
   end
   new_s.join('')
@@ -60,7 +61,7 @@ def rand_star
   c = rand > 0.5  ? "." : "*"
   c = blink(c) if rand > 0.5
   c = Pastel.new.yellow(c) if rand > 0.5
-  c
+  Pastel.new.dim(c)
 end
 
 slides << ->() {
@@ -199,7 +200,7 @@ slides << ->() {
 }
 
 slides << ->() {
-  puts font.write '\watch'
+  puts add_stars font.write '\watch'
   puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
   puts "   postgres 9.3"
   puts "💓 💕 💖 💗 💘 💙 💚 💛 💜 💝 "
@@ -226,11 +227,11 @@ EOF
 
 
 slides << ->() {
-  puts starwars.write "demo"
+  puts add_stars starwars.write "demo"
 }
 
 slides << ->() {
-  puts starwars.write "thanks"
+  puts add_stars starwars.write "thanks"
   puts head "@leinweber"
 }
 

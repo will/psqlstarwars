@@ -7,6 +7,7 @@ GEM
     tty-color (0.4.2)
     tty-cursor (0.4.0)
     tty-font (0.2.0)
+    tty-screen (0.5.1)
 
 PLATFORMS
   ruby
@@ -15,6 +16,7 @@ DEPENDENCIES
   pastel
   tty-cursor
   tty-font
+  tty-screen
 
 BUNDLED WITH
    1.16.1
