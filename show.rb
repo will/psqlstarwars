@@ -91,6 +91,43 @@ slides << ->() {
   puts "by Simon Jansen"
 }
 
+
+slides << ->() {
+puts <<-STARWARS
+                                        ====
+          Help me,                      o o~~
+      Obi-Wan Kenobi!                  _\\O /_
+                           ___        / \\ /  \\
+                          /() \\      //| |  |\\\\
+                        _|_____|_   // | |  |//
+            ,@         | | === | | //  | |  //
+            /=-        |_|  O  |_|('   |===(|
+            ||          ||  O  ||      | || |
+            ||          ||__*__||      (_)(_)
+          --~~---      |~ \\___/ ~|     |_||_|
+          |     |      /=\\ /=\\ /=\\     |_||_|
+ _________|_____|______[_]_[_]_[_]____/__][__\\______________________
+STARWARS
+}
+
+slides << ->() {
+puts <<-STARWARS
+                                        ====
+      You're my only                    o o~~
+           hope!                       _\\- /_
+                           ___        / \\ /  \\
+                          /() \\      //| |  |\\\\
+                        _|_____|_   // | |  |//
+            ,@         | | === | | //  | |  //
+            /=-        |_|  O  |_|('   |===(|
+            ||          ||  O  ||      | || |
+            ||          ||__*__||      (_)(_)
+          --~~---      |~ \\___/ ~|     |_||_|
+          |     |      /=\\ /=\\ /=\\     |_||_|
+ _________|_____|______[_]_[_]_[_]____/__][__\\______________________
+STARWARS
+}
+
 slides << ->() {
   puts head "can't just curl"
   puts <<-EOF
@@ -138,7 +175,7 @@ slides << ->() {
   print 'raw = File.readlines("site.html")'; STDIN.gets
   print '  .find {|line| line.start_with? "var film"}'; STDIN.gets
   print "  .encode('UTF-8','binary',invalid: :replace,undef: :replace,replace: '')"; STDIN.gets
-  print %q{  .gsub(%q{\'},"'")[12..-16]"}; STDIN.gets
+  print %q{  .gsub(%q{\'},"'")[12..-16]}; STDIN.gets
   print %q{  .split('\n')}; STDIN.gets
   print "  .each_slice(14)"
 }
@@ -219,8 +256,11 @@ slides << ->() {
   Add \watch [SEC] command to psql.
 
   This allows convenient re-execution of commands.
+
+  <authors>, reviewed by <reviewers>
 EOF
   STDIN.gets
+  print TTY::Cursor.up(2)
   puts "  Will Leinweber, reviewed by Peter Eisentraut, Daniel Farina, and Tom Lane"
   h = "😇" + ' '
   puts "  " + h*7
