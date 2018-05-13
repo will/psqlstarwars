@@ -17,6 +17,12 @@ starwars = TTY::Font.new(:starwars)
 font = TTY::Font.new(:standard)
 pastel = Pastel.new
 
+def show_over
+  File.delete ".current" if File.exists? ".current"
+  puts '\o/ show over \o/'
+  exec "afplay starwars.midi.mp3"
+end
+
 def blink(s)
   "\e[5m#{s}\e[0m"
 end
@@ -275,6 +281,7 @@ slides << ->() {
   puts add_stars starwars.write "thanks"
   puts head "@leinweber"
   puts head "github.com/will/psqlstarwars"
+  show_over
 }
 
 last_from_file = File.read(".current") rescue nil
@@ -304,5 +311,4 @@ loop do
   end
 end
 
-File.delete ".current" if File.exists? ".current"
-puts '\o/ show over \o/'
+show_over
