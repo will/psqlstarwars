@@ -146,7 +146,7 @@ EOF
 slides << ->() {
   puts head "use compression!"
   puts <<-EOF
-$ curl -sH 'Accept-encoding: gzip' www.asciimation.co.nz | gunzip - > site.html
+$ curl -sH 'Accept-encoding: gzip' asciimation.co.nz | gunzip - > site.html
 $ du -hs site.html
 2.0M	site.html
 EOF
@@ -234,11 +234,11 @@ SQL
 
 slides << ->() {
   puts head "Are we done?"
-  puts "SELECT go(0.01, nextval('ctr');"
-  puts "SELECT go(0.01, nextval('ctr');"
-  puts "SELECT go(0.01, nextval('ctr');"
-  puts "SELECT go(0.01, nextval('ctr');"
-  puts
+  puts "SELECT go(0.01, nextval('ctr'));"
+  puts "SELECT go(0.01, nextval('ctr'));"
+  puts "SELECT go(0.01, nextval('ctr'));"
+  puts "SELECT go(0.01, nextval('ctr'));"
+  puts; STDIN.gets
   puts head "NO! there HAS to be a better way!"
 
 }
