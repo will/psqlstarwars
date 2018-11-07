@@ -41,10 +41,12 @@ def head(s)
   p = Pastel.new
   p.bold.magenta("➸ ") + p.bold.magenta.underline(s) + "\n\n"
 end
-#def image(path)
-  #img = Base64.encode64(File.read(path))
+
+def image(path,w="100%",h="100%")
+  img = Base64.encode64(File.read(path))
   #puts "\x1B]1337;File=inline=1;#{img}\x07"
-#end
+  puts "\033]1337;File=inline=1;width=#{w};height=#{h}:#{img}\x07"
+end
 
 def add_stars(s)
   color = Pastel.new.bold.green.detach
@@ -76,7 +78,7 @@ slides << ->() {
     puts wrap.(10, pastel.magenta('using psql to \watch'))
     puts add_stars starwars.write "Star "
     puts add_stars starwars.write "Wars"
-    puts wrap.(11, pastel.magenta("Will Leinweber"))
+    puts wrap.(5, pastel.magenta("And other silly things! by Will Leinweber"))
     sleep 1 + rand
     print TTY::Cursor.up(16)
   end
@@ -91,6 +93,76 @@ slides << ->() {
   puts "   slides: github.com/will/psqlstarwars"
 }
 
+
+slides << ->() {
+  puts head 'bundle update!'
+  print "2015: 1,396,073"; STDIN.gets
+  puts "2018: 3,968,675"
+}
+
+slides << ->() {
+  puts head 'bundle update!'
+  puts <<-GRAPH
+
+  3,968,675 |        _,-'
+  2,682,374 |    _,-'
+  1,396,073 | ,-'
+          0 |____________
+              15 16 17 18
+  GRAPH
+}
+
+
+slides << ->() {
+  puts head 'story time'
+  puts "90 children"
+  puts "names = (1..90).map(&:to_s)"
+}
+
+slides << ->() {
+  puts add_stars starwars.write "coding"
+  puts add_stars starwars.write "for fun"
+}
+
+slides << ->() {
+  puts head 'themes'
+  puts "automation"
+  puts "terminal things"
+}
+
+slides << ->() {
+  puts head 'automation'
+  puts "chatbots"
+}
+
+slides << ->() {
+  puts head 'automation'
+  puts "chatbots"
+}
+
+
+
+slides << ->() {
+  puts head 'slack typing'
+  puts <<-RUBY
+  client = Slack::RealTime::Client.new(token: token)
+
+  client.on(:user_typing) do |data|
+    logger.info data
+    client.typing channel: data.channel
+    #client.message channel: data.channel,
+    #  text: "What are you typing <@\#{data.user}>?"
+  end
+
+  client.start_async
+  RUBY
+}
+
+slides << ->() {
+  puts head "demo"
+  # ffmpeg -i ../slacktyping/will_typing.mov -s 320:108 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > out.gif > slacktyping.gif
+  puts image "slacktyping.gif"
+}
 
 slides << ->() {
   puts head 'asciimation.co.nz'
