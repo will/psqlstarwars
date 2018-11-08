@@ -93,6 +93,10 @@ slides << ->() {
   puts "   slides: github.com/will/psqlstarwars"
 }
 
+slides << ->() {
+  puts head "warning"
+  puts "teamwork makes the dreamwork"
+}
 
 slides << ->() {
   puts head 'bundle update!'
@@ -135,12 +139,6 @@ slides << ->() {
   puts "chatbots"
 }
 
-slides << ->() {
-  puts head 'automation'
-  puts "chatbots"
-}
-
-
 
 slides << ->() {
   puts head 'slack typing'
@@ -165,10 +163,107 @@ slides << ->() {
 }
 
 slides << ->() {
-  puts head 'asciimation.co.nz'
-  puts "by Simon Jansen"
+  puts head "twitter bots"
+  puts "Sometimes there are good jokes on twitter!"
 }
 
+slides << ->() {
+  puts head "twitter bots"
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts <<-RUBY
+  def go
+    since = REDIS.get "since"
+    results = get_tweets since
+
+    results.each { |t| reply_to t }
+
+    REDIS.set("since", results.map(&:id).max || since)
+  end
+  RUBY
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts <<-RUBY
+   def reply_to(t)
+    return unless rand > 0.95
+    r = response_for(t)
+    CLIENT.update("@\#{TARGET} \#{r}", in_reply_to_status: t)
+  end
+  RUBY
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts <<-RUBY
+  def response_for(t)
+    text = t.lang == "ja" ? NAME : JA_NAME
+    len = t.full_text.size
+    text = text[0]*3 + text if len > 90
+    text += text[-1]*10     if len > 140
+
+    text = "…" + text if rand > 0.9
+    text += (rand > 0.5 ? "!" : '.') if rand > 0.9
+    text += " #\#{NAME}" if rand > 0.9
+    text += " " + EMOJI.sample if rand > 0.9
+
+    return text
+  end
+  RUBY
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts <<-RUBY
+    TARGET = "tenderlove"
+    NAME = "aaron"
+    JA_NAME = "アーロン"
+    # @aaronautomatic
+  RUBY
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts image("aaron.png")
+}
+
+slides << ->() {
+  puts head "twitter bots"
+  puts image("aaronja.png")
+}
+
+
+slides << ->() {
+  puts head 'Terminal stuff -> These slides!'
+  puts <<-RUBY2
+    slides << ->() {
+      puts head 'Terminal stuff -> These slides!'
+      puts <<-RUBY
+        slides << ->() {
+          puts head 'Terminal stuff -> These slides!'
+          puts <<-RUBY
+            # TODO figure out recursion
+          RUBY
+        }
+      RUBY
+    }
+  RUBY2
+}
+
+slides << ->() {
+  puts head "oh maybe this'll work?"
+  File.readlines(__FILE__)[__LINE__-3,8].each{|l| puts l}
+  # haha nice
+}
+
+slides << ->() {
+  puts head "wasn't this about star wars?"
+  puts 'asciimation.co.nz'
+  puts "by Simon Jansen"
+}
 
 slides << ->() {
 puts <<-STARWARS
@@ -348,6 +443,94 @@ EOF
 slides << ->() {
   puts add_stars starwars.write "demo"
 }
+
+
+
+
+
+
+slides << ->() {
+  puts head "what about the emoji‽ "
+  puts "can't wait for all movies to be hand drawn into ascii"
+}
+
+slides << ->() {
+  puts head "what about the emoji‽ "
+  puts "have ffmpeg output PPM format!"
+  puts
+  puts "5036 0a38 3020 3430 0a32 3535 0a00"
+  puts "P6.80 40.255"
+  puts "format width height color_depth"
+}
+
+slides << ->() {
+  puts head "initail testing with ansi control characters"
+  puts <<-CRYSTAL
+struct Pixel
+  property r : UInt8
+  property g : UInt8
+  property b : UInt8
+
+  def initialize(@r, @g, @b)
+  end
+
+  def to_c
+    STDOUT << "\\x1b[38;2;\#{r};\#{g};\#{b}m█\\x1b[0m"
+  end
+  CRYSTAL
+}
+
+slides << ->() {
+  puts head "ansi demo"
+}
+
+slides << ->() {
+  puts head "no really, what about the emoji‽"
+  puts "ok!"
+  puts <<-EOF
+1) find repo of PNGs of all apple emojis
+2) use ffmpeg to turn them into 4 pixel images
+3) go through them all manually to remove which ones
+   you dont actually have because you are a mojave-not
+EOF
+}
+
+slides << ->() {
+  puts head "emoji.txt"
+  puts <<-EOF
+4c6c89536a82ae937cb8957b 1f3c2
+6c635b695d54ad9b97ab9791 1f3c3-1f3fb-200d-2640-fe0f
+936d68927068a28d90a08c8d 1f3c3-1f3fb-200d-2642-fe0f
+936d68927068a28d90a08c8d 1f3c3-1f3fb
+EOF
+  puts
+  puts "2624 total, 1065 I have"
+}
+
+slides << ->() {
+  puts head "distance"
+  puts <<-EOF
+struct Pixel
+  def -(other : Pixel)
+    rbar = (self.r.to_f + other.r.to_f)/2.0
+    dr = self.r.to_f - other.r.to_f
+    dg = self.g.to_f - other.g.to_f
+    db = self.b.to_f - other.b.to_f
+    # Math.sqrt( ... )
+    (2*dr*dr) + (4*dg*dg) + (3*db*db) + ((r * ((dr*dr) - (db*db)))/256)
+  end
+  EOF
+}
+
+slides << ->() {
+  puts head "emoji demo"
+}
+
+
+
+
+
+
 
 slides << ->() {
   puts add_stars starwars.write "thanks"
