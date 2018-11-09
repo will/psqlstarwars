@@ -94,11 +94,6 @@ slides << ->() {
 }
 
 slides << ->() {
-  puts head "warning"
-  puts "teamwork makes the dreamwork"
-}
-
-slides << ->() {
   puts head 'bundle update!'
   print "2015: 1,396,073"; STDIN.gets
   puts "2018: 3,968,675"
