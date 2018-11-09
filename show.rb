@@ -118,6 +118,7 @@ slides << ->() {
 
 
 slides << ->() {
+  # story
   puts head 'story time'
   puts "90 children"
   puts "names = (1..90).map(&:to_s)"
@@ -130,7 +131,7 @@ slides << ->() {
 
 slides << ->() {
   puts head 'themes'
-  puts "automation"
+  puts "automate things"
   puts "terminal things"
 }
 
@@ -162,13 +163,17 @@ slides << ->() {
   puts image "slacktyping.gif"
 }
 
+
 slides << ->() {
-  puts head "twitter bots"
-  puts "Sometimes there are good jokes on twitter!"
+  # story
+  puts head 'story time'
+  puts "Ninety had two children"
+  puts "and they wanted a dog"
 }
 
 slides << ->() {
   puts head "twitter bots"
+  puts "Sometimes there are good jokes on twitter!"
 }
 
 slides << ->() {
@@ -200,7 +205,7 @@ slides << ->() {
   puts head "twitter bots"
   puts <<-RUBY
   def response_for(t)
-    text = t.lang == "ja" ? NAME : JA_NAME
+    text = t.lang == "ja" ? NAME_JA : NAME
     len = t.full_text.size
     text = text[0]*3 + text if len > 90
     text += text[-1]*10     if len > 140
@@ -222,6 +227,7 @@ slides << ->() {
     NAME = "aaron"
     JA_NAME = "アーロン"
     # @aaronautomatic
+    # github.com/will/autoaaron
   RUBY
 }
 
@@ -257,6 +263,12 @@ slides << ->() {
   puts head "oh maybe this'll work?"
   File.readlines(__FILE__)[__LINE__-3,8].each{|l| puts l}
   # haha nice
+}
+
+slides << ->() {
+  # story
+  puts head 'story time'
+  puts "The were forbidden from ever having a dog :("
 }
 
 slides << ->() {
@@ -448,6 +460,12 @@ slides << ->() {
 
 
 
+slides << ->() {
+  # story
+  puts head 'story time'
+  puts "The found a stray and named it `this`"
+}
+
 
 slides << ->() {
   puts head "what about the emoji‽ "
@@ -461,6 +479,8 @@ slides << ->() {
   puts "5036 0a38 3020 3430 0a32 3535 0a00"
   puts "P6.80 40.255"
   puts "format width height color_depth"
+  puts
+  puts "github.com/will/ppm2emoji"
 }
 
 slides << ->() {
@@ -528,6 +548,13 @@ slides << ->() {
 
 
 
+
+slides << ->() {
+  # story
+  puts head 'story time'
+  puts "`this` ran away"; STDIN.gets
+  puts "only 90's kids will remember `this`"
+}
 
 
 
